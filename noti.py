@@ -59,53 +59,7 @@ def mail(status,string):
 
 
 
-def mission_token():
-  global mt
-  TOKEN = os.environ.get('synack_b')
-  os.popen("curl -X 'GET' -H 'Host: platform.synack.com' -H 'User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0' -H 'Accept: */*' -H 'Accept-Language: en-US,en;q=0.5' -H 'Accept-Encoding: gzip, deflate' -H 'Referer: https://platform.synack.com/' -H 'Authorization: Bearer '"+TOKEN+" -H 'Connection: close' -H  'Cookie: visid_incap_1222915=TzHRu9SvTwiEUIcwXGMp7gBjGV8AAAAAQUIPAAAAAAB8YSx5lo26VZSOaHVmdA59; visid_incap_1222919=5YlC9AOLQEO2dqVfQtdWhgBjGV8AAAAAQUIPAAAAAADYnT+YKqmL5aHzUoMYOL4h; fs_uid=rs.fullstory.com#QDGY#6044887422418944:5063476773732352#316eef80#/1627035358; visid_incap_2259066=XP7U+ysKRFmr4XwkFk+rD15jGV8AAAAAQUIPAAAAAABxmzHdewIoeGNuVFmFYssO; _ga=GA1.2.1883377263.1595509574; incap_ses_1211_1222915=bAI5WM8Eogh7FJLEJVbOEIFRK18AAAAAo4xwBIRB+7mLmA+tyt9kpw==; incap_ses_889_1222919=97f5VpWYlXRIEj/X3FxWDIFRK18AAAAA0xlZvqM3lNELnKnLaQikwg==; incap_ses_890_2259066=9ce0UPMlwXjkiJ57W+pZDIBRK18AAAAAMqrO03jkBDOY97vuynxq9A==; _gid=GA1.2.1428005156.1596674450' -b 'visid_incap_1222915=TzHRu9SvTwiEUIcwXGMp7gBjGV8AAAAAQUIPAAAAAAB8YSx5lo26VZSOaHVmdA59; visid_incap_1222919=5YlC9AOLQEO2dqVfQtdWhgBjGV8AAAAAQUIPAAAAAADYnT+YKqmL5aHzUoMYOL4h; fs_uid=rs.fullstory.com#QDGY#6044887422418944:5063476773732352#316eef80#/1627035358; visid_incap_2259066=XP7U+ysKRFmr4XwkFk+rD15jGV8AAAAAQUIPAAAAAABxmzHdewIoeGNuVFmFYssO; _ga=GA1.2.1883377263.1595509574; incap_ses_1211_1222915=bAI5WM8Eogh7FJLEJVbOEIFRK18AAAAAo4xwBIRB+7mLmA+tyt9kpw==; incap_ses_889_1222919=97f5VpWYlXRIEj/X3FxWDIFRK18AAAAA0xlZvqM3lNELnKnLaQikwg==; incap_ses_890_2259066=9ce0UPMlwXjkiJ57W+pZDIBRK18AAAAAMqrO03jkBDOY97vuynxq9A==; _gid=GA1.2.1428005156.1596674450' 'https://platform.synack.com/api/users/notifications_token' --compressed -o mission_token.json")
-  mt=os.popen("jq '.token' mission_token.json").read()
-  os.popen("rm mission_token.json")
 
-
-
-def listing():
-  idl = os.popen("jq '.[0].id' listing.json").read()
-  action = os.popen("jq '.[0].action' listing.json").read()
-  action = action.replace('"', '')
-  action = action.replace('\n','')
-  #Logic 
-  print idl;
-  print action;
-  tempwa = "onboarded"
-  if action == tempwa:
-    fl=open("listing.txt", "r")
-    statl=0;
-    #print id;
-    for chl in fl:
-      print statl;
-      if idl == chl:
-        print "No new mission";
-      else:
-        statl=1;
-        os.popen("curl -X POST -H 'Content-type: application/json' --data '{\"text\":\"New Onboarded!!(Notification1) \"}' 'https://hooks.slack.com/services/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'") 
-        time.sleep(2)
-        os.popen("curl -X POST -H 'Content-type: application/json' --data '{\"text\":\"New Onboarded!!(Notification2) \"}' 'https://hooks.slack.com/services/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'") 
-        time.sleep(2)
-        os.popen("curl -X POST -H 'Content-type: application/json' --data '{\"text\":\"New Onboarded!!(Notification3) \"}' 'https://hooks.slack.com/services/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'") 
-        time.sleep(2)
-        os.popen("curl -X POST -H 'Content-type: application/json' --data '{\"text\":\"New Onboarded!!(Notification4) \"}' 'https://hooks.slack.com/services/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'") 
-        time.sleep(2)
-        os.popen("curl -X POST -H 'Content-type: application/json' --data '{\"text\":\"New Onboarded!(Notification5) \"}' 'https://hooks.slack.com/services/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'") 
-    fl.close()
-    # File update logic
-    if statl==1:
-      fl=open("listing.txt", "w")
-      fl.write(idl)
-      fl.close()
-    else:
-      print "";
-  else:
-    print "Not onboarded"
 
 def mission():
 
@@ -141,27 +95,14 @@ def mission():
   else:
     print "";
 
-def pro(mt):
-  #print mt
-  #TOKENIS = os.environ.get('synack_m')
-  mt = mt.replace('"', '')
-  mt = mt.replace('\n', '')
-  #if mt == TOKENIS:
-  #  print "Equal MT"
-  #else:
-  #  print "not equal"
-  #print TOKENIS
-  #print mt
-  result = os.popen("curl -H 'Host: notifications.synack.com' -H 'User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0' -H 'Accept: */*' -H 'Accept-Language: en-US,en;q=0.5' -H 'Accept-Encoding: gzip, deflate' -H 'Referer: https://platform.synack.com/notifications?filter=vulnerability' -H 'Authorization: Bearer '"+mt+" -H 'Origin: https://platform.synack.com' -H 'Connection: close' 'https://notifications.synack.com/api/v2/notifications?filter=campaign&pagination%5Bpage%5D=1&pagination%5Bper_page%5D=1&meta=1' --compressed -o notioutput.json").read()
-  
-  resultl = os.popen("curl -H 'Host: notifications.synack.com' -H 'User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0' -H 'Accept: */*' -H 'Accept-Language: en-US,en;q=0.5' -H 'Accept-Encoding: gzip, deflate' -H 'Referer: https://platform.synack.com/notifications?filter=vulnerability' -H 'Authorization: Bearer '"+mt+" -H 'Origin: https://platform.synack.com' -H 'Connection: close' 'https://notifications.synack.com/api/v2/notifications?filter=listing&pagination%5Bpage%5D=1&pagination%5Bper_page%5D=1&meta=1' --compressed -o listing.json").read()
+def pro():
+  TOKENIS = os.environ.get('synack_m')
+  result = os.popen("curl -H 'Host: notifications.synack.com' -H 'User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0' -H 'Accept: */*' -H 'Accept-Language: en-US,en;q=0.5' -H 'Accept-Encoding: gzip, deflate' -H 'Referer: https://platform.synack.com/notifications?filter=vulnerability' -H 'Authorization: Bearer '"+TOKENIS+" -H 'Origin: https://platform.synack.com' -H 'Connection: close' 'https://notifications.synack.com/api/v2/notifications?filter=campaign&pagination%5Bpage%5D=1&pagination%5Bper_page%5D=1&meta=1' --compressed -o notioutput.json").read()
+
 
   
   notioutput = os.popen("jq '.' notioutput.json").read()
-  listioutput = os.popen("jq '.' listing.json").read()
-  print notioutput+"\n";
-  print listioutput;
-
+  print notioutput;
 
 
   #offerb = os.popen("jq '.results[0].meta.offers_bounties' output.json").read()   
@@ -175,28 +116,15 @@ def pro(mt):
     mission()
   else:
     print "Token Error"
-    os.popen("curl -X POST -H 'Content-type: application/json' --data '{\"text\":\"Mission TOKEN ERROR!(Notification) inside Campaign \"}' 'https://hooks.slack.com/services/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'") 
+    os.popen("curl -X POST -H 'Content-type: application/json' --data '{\"text\":\"Mission TOKEN ERROR!(Notification) \"}' 'https://hooks.slack.com/services/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'") 
 
   os.popen("rm notioutput.json")
-  #print "END";
 
-
-  #print test;
-  print len(listioutput);
-  if len(listioutput) != 31:
-    listing()
-  else:
-    print "Token Error"
-    os.popen("curl -X POST -H 'Content-type: application/json' --data '{\"text\":\"Mission TOKEN ERROR!(Notification) inside Listing \"}' 'https://hooks.slack.com/services/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'") 
-
-  os.popen("rm listing.json")
   print "END";
 
 if __name__ == '__main__':
   while True:
-    mission_token()
     missiontab()
-    pro(mt)
-    time.sleep(180)
-
+    pro()
+    time.sleep(300)
 
